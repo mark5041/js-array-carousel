@@ -35,13 +35,13 @@ for(let i = 0; i < items.length; i++)
                     <h1>${title[i]}</h1>
                     <span>${text[i]}</span>
                 </div>
-                <img class="w-100" src="${items[i]}" alt="">`;
+                <img src="${items[i]}" alt="">`;
     evidence_img_box.innerHTML = jumbo;
     evidence.append(evidence_img_box);
 
 
     let image_box = document.createElement("div");
-    image_box.classList.add("my-col");
+    image_box.classList.add("my-col", "relative");
     image = `<img class="click-me" src="${items[i]}" alt="">`
     image_box.innerHTML = image;
     image_section.append(image_box);
@@ -50,24 +50,66 @@ for(let i = 0; i < items.length; i++)
 let all_evi_img = document.querySelectorAll(".image-box");
 let all_box_img = document.querySelectorAll(".my-col");
 
+let evi_img = document.querySelector(".image-box");
+let box_img = document.querySelector(".my-col");
+
+let up = document.querySelector(".up");
+let down = document.querySelector(".down");
+
 all_evi_img[0].classList.add('active');
 all_box_img[0].classList.add('active');
 
 
+up.addEventListener('click', 
+    function()
+    {
+        const active_ev_box = document.querySelector(".image-box.active");
+        const prev_active_ev_box = active_ev_box.previousElementSibling;
+        const active_img = document.querySelector(".my-col.active");
+        const prev_active_img = active_img.previousElementSibling;
 
-// let click_img = document.querySelectorAll("img.click-me");
-// let active = false;
+        if(active_img == all_box_img[0])
+        {
+            active_img.classList.remove("active");
+            active_ev_box.classList.remove("active");
+            all_evi_img[items.length - 1].classList.add('active');
+            all_box_img[items.length - 1].classList.add('active');
+        }
+        else
+        {
+            active_img.classList.remove("active");
+            prev_active_ev_box.classList.add("active");
+            active_ev_box.classList.remove("active");
+            prev_active_img.classList.add("active");
+        }
 
-// click_img.addEventListener('click', 
-//     function()
-//     {
-//         if(click_img.classList == "active")
-//         {
-//             click_img.classList.remove("active");
-//         }
-//         else
-//         {
-//             click_img.classList.add("active");
-//         }
-//     }
-// );
+        
+        
+    }
+);
+
+down.addEventListener('click', 
+    function()
+    {
+        const active_ev_box = document.querySelector(".image-box.active");
+        const next_active_ev_box = active_ev_box.nextElementSibling;
+        const active_img = document.querySelector(".my-col.active");
+        const next_active_img = active_img.nextElementSibling;
+
+        if(next_active_img == null)
+        {
+            active_img.classList.remove("active");
+            active_ev_box.classList.remove("active");
+            all_evi_img[0].classList.add('active');
+            all_box_img[0].classList.add('active');
+        }
+        else
+        {
+            active_img.classList.remove("active");
+            next_active_img.classList.add("active");
+            active_ev_box.classList.remove("active");
+            next_active_ev_box.classList.add("active");
+        }
+    }
+);
+
